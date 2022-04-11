@@ -37,8 +37,10 @@ int main(int argc, char *argv[]) {
 	gethostname(hostname, HOST_NAME_MAX);
 
 	/* username */
-	char username[LOGIN_NAME_MAX];
-	getlogin_r(username, LOGIN_NAME_MAX);
+	char username[LOGIN_NAME_MAX] = "";
+	if (getlogin_r(username, LOGIN_NAME_MAX) != 0) {
+		strncpy(username, getenv("USER"), LOGIN_NAME_MAX);
+	}
 
 	/* nix name */
 	struct utsname ver;
