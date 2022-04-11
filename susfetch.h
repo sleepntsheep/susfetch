@@ -6,7 +6,7 @@
 #define BRST "\x1B[49m"
 #define BYLW "\x1B[48;5;220m"
 #define BPNK "\x1B[48;5;212m"
-#define BBLE "\x1B[48;5;208m"
+#define BBLE "\x1B[48;5;20m"
 #define BGRN "\x1B[48;5;208m"
 #define BBLK "\x1B[48;5;232m"
 
