@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 	char *shellname;
 	shellname = getenv("SHELL");
 	if (shellname == NULL) {
-		shellname = getusershell();
+		shellname = "";
 	}
 
 	/* uptime */
