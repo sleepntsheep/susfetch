@@ -61,7 +61,6 @@ int main(int argc, char *argv[]) {
 	char memtype[50];
 	unsigned int mem;
 	while (fscanf(fp, "%s %u kB%*[^\n]", memtype, &mem) != EOF) {
-		printf("%s %u \n", memtype, mem);
 		if (strncmp(memtype, "MemTotal", 8) == 0)
 			totalmem = mem;
 		else if (strncmp(memtype, "MemFree", 7) == 0)
