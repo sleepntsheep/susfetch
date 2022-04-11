@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
+#include <limits.h>
 #include "susfetch.h"
 
 #define KB 1024.0
@@ -32,12 +33,12 @@ int main(int argc, char *argv[]) {
 	}
 
 	/* hostname */
-	char hostname[256];
-	gethostname(hostname, 256);
+	char hostname[HOST_NAME_MAX];
+	gethostname(hostname, HOST_NAME_MAX);
 
 	/* username */
-	char *username;
-	username = getenv("USER");
+	char username[LOGIN_NAME_MAX];
+	getlogin_r(username, LOGIN_NAME_MAX);
 
 	/* nix name */
 	struct utsname ver;
@@ -46,6 +47,9 @@ int main(int argc, char *argv[]) {
 	/* shellname */
 	char *shellname;
 	shellname = getenv("SHELL");
+	if (shellname == NULL) {
+		shellname = getusershell();
+	}
 
 	/* uptime */
 	struct sysinfo info;
