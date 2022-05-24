@@ -14,19 +14,19 @@
 int main(int argc, char *argv[]) {
 	bool smol = false;
 	char colors[3][12] = { BRST, BRED, BGRY };
-	char colorss[10][2][12] = {
+	char colorss[][2][12] = {
 		{"yellow", BYLW}, {"pink", BPNK}, {"blue", BBLE}, {"green", BGRN}
 	};
 	
 	for (int i = 1; i < argc; i++) {
-		if (strncmp(argv[i], "--color", 7) == 0 && argc > i+1) {
-			for (int j = 0; j < 10; j++) {
-				if (strncmp(argv[i+1], colorss[j][0], strlen(colorss[j][0])) == 0) {
+		if (strcmp(argv[i], "--color") == 0 && argc > i+1) {
+			for (int j = 0; j < LENGTH(colorss); j++) {
+				if (strcmp(argv[i+1], colorss[j][0]) == 0) {
 					strncpy(colors[1], colorss[j][1], 12);
 					break;
 				}
 			}
-		} else if (strncmp(argv[i], "--smol", 6) == 0) {
+		} else if (strcmp(argv[i], "--smol") == 0) {
 			smol = true;
 		}
 	}
@@ -77,6 +77,8 @@ int main(int argc, char *argv[]) {
 	}
 	unsigned int usedmem = totalmem-freemem-cachedmem-buffermem;
 
+    fclose(fp);
+
 	double totalmemGB = (double)totalmem / GB;
 	double usedmemGB = (double)usedmem / GB;
 
@@ -97,7 +99,7 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < 6; i++) {
 		printf("  ");
 		for (int j = 0; j < 5; j++) {
-			char ci = (smol) ? smolamogus[i][j] : amogus[i][j];
+			int ci = (smol) ? smolamogus[i][j] : amogus[i][j];
 			if (ci >= 0) {
 				printf("%s", colors[ci]);
 				printf("  ");
