@@ -12,7 +12,10 @@
 #define BGRN "\x1B[48;5;208m"
 #define BBLK "\x1B[48;5;232m"
 
-const int amogus[6][5] = {
+#define WIDTH 5
+#define HEIGHT 6
+
+const int amogus[][5] = {
 	{0, 1, 1, 1, 0},
 	{1, 1, 2, 2, 2},
 	{1, 1, 2, 2, 2},
@@ -21,7 +24,7 @@ const int amogus[6][5] = {
 	{0, 1, 0, 1, 0},
 };
 
-const int smolamogus[6][5] = {
+const int smolamogus[][5] = {
 	{0, 1, 1, 1, 0},
 	{1, 1, 2, 2, 0},
 	{1, 1, 1, 1, 0},
@@ -29,7 +32,5 @@ const int smolamogus[6][5] = {
 	{0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0},
 };
-
-void sec_to_format(unsigned int sec, char *buf);
 
 #endif
