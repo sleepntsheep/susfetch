@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -std=c99 -O2
+CFLAGS := -std=c99 -pedantic -O2
 DEST := /usr/local/bin
 
 all: susfetch

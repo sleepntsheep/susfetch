@@ -1,14 +1,15 @@
 #define _POSIX_C_SOURCE 200809L
 
-#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <unistd.h>
 #include <sys/sysinfo.h>
 #include <sys/utsname.h>
 #include <sys/file.h>
 #include <pwd.h>
-#include <limits.h>
 
 #include "util.h"
 
@@ -70,8 +71,8 @@ const char *
 _uptime(void)
 {
     char *s;
-    s = xmalloc(200);
 	struct sysinfo info;
+    s = xmalloc(200);
 	sysinfo(&info);
 	sec_to_format(info.uptime, s);
     return s;
@@ -80,34 +81,28 @@ _uptime(void)
 const char *
 _memory(void)
 {
+    /* struct sysinfo si;
+    -- sysinfo(&si);
+    -- snprintf(s, 200, "%.0f/%.0f MB", (float)(si.totalram-si.freeram)/GB, (float)si.totalram/GB);
+	** mem in sysinfo does not include cached mem, hence is inaccurate */
     char *s;
-    struct sysinfo si;
+    uintmax_t free, total, buffer, cached;
+    FILE *pmif;
     s = xmalloc(200);
-    sysinfo(&si);
-    snprintf(s, 200, "%.0f/%.0f MB", (float)(si.totalram-si.freeram)/GB, (float)si.totalram/GB);
+
+    pmif = fopen("/proc/meminfo", "r");
+    if (fscanf(pmif,
+               "MemTotal: %ju kB\n"
+               "MemFree: %ju kB\n"
+               "MemAvailable: %ju kB\n"
+               "Buffers: %ju kB\n"
+               "Cached: %ju kB\n",
+               &total, &free, &buffer, &buffer, &cached) != 5) {
+        return NULL;
+    }
+    fclose(pmif);
+    snprintf(s, 200, "%.1lf/%.1lf GB", (total - free - buffer - cached)/GB, total/GB);
     return s;
-/*
-	 mem 
-	-- mem in sysinfo does not include cached mem, hence is inaccurate
-	
-	unsigned int totalmem, freemem, cachedmem, buffermem;
-	FILE *fp = fopen("/proc/meminfo", "r");
-	char memtype[50];
-	unsigned int mem;
-	while (fscanf(fp, "%s %u kB%*[^\n]", memtype, &mem) != EOF) {
-		if (strncmp(memtype, "MemTotal", 8) == 0)
-			totalmem = mem;
-		else if (strncmp(memtype, "MemFree", 7) == 0)
-			freemem = mem;
-		else if (strncmp(memtype, "Cached", 6) == 0)
-			cachedmem = mem;
-		else if (strncmp(memtype, "Buffers", 7) == 0)
-			buffermem = mem;
-	}
-	unsigned int usedmem = totalmem-freemem-cachedmem-buffermem;
-    fclose(fp);
-	double totalmemGB = (double)totalmem / GB;
-	double usedmemGB = (double)usedmem / GB;*/
 }
 
 

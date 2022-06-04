@@ -25,14 +25,10 @@ int main(int argc, char *argv[])
 {
     int ci, i, j;
     bool smol = false;
+	char colors[3][13] = { BRST, BRED, BGRY };
+
     argv0 = *argv;
 
-    char *user, *host, *shell, *release, *uptime, *memory;
-	char colors[3][12] = { BRST, BRED, BGRY };
-	char colorss[][2][12] = {
-		{"yellow", BYLW}, {"pink", BPNK}, {"blue", BBLE}, {"green", BGRN}
-	};
-	
     ARGBEGIN {
         case 'c': {
             char *nx = NXARG(usage());
@@ -50,7 +46,6 @@ int main(int argc, char *argv[])
     } ARGEND
 
 	/* print */
-	printf("\n");
     fputc('\n', stdout);
 	for (i = 0; i < MAX(HEIGHT, LENGTH(fetch)); i++) {
         fputs("  ", stdout);

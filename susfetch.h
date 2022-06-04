@@ -15,22 +15,24 @@
 #define WIDTH 5
 #define HEIGHT 6
 
-const int amogus[][5] = {
-	{0, 1, 1, 1, 0},
-	{1, 1, 2, 2, 2},
-	{1, 1, 2, 2, 2},
-	{1, 1, 1, 1, 0},
-	{0, 1, 1, 1, 0},
-	{0, 1, 0, 1, 0},
+const int amogus[HEIGHT][WIDTH] = {
+	0, 1, 1, 1, 0,
+	1, 1, 2, 2, 2,
+	1, 1, 2, 2, 2,
+	1, 1, 1, 1, 0,
+	0, 1, 1, 1, 0,
+	0, 1, 0, 1, 0,
 };
 
-const int smolamogus[][5] = {
-	{0, 1, 1, 1, 0},
-	{1, 1, 2, 2, 0},
-	{1, 1, 1, 1, 0},
-	{0, 1, 0, 1, 0},
-	{0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0},
+const int smolamogus[HEIGHT][WIDTH] = {
+	0, 1, 1, 1, 0,
+	1, 1, 2, 2, 0,
+	1, 1, 1, 1, 0,
+	0, 1, 0, 1, 0,
+};
+
+static const char colorss[][2][13] = {
+    {"yellow", BYLW}, {"pink", BPNK}, {"blue", BBLE}, {"green", BGRN}
 };
 
 #endif
