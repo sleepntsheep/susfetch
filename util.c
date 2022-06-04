@@ -21,3 +21,4 @@ xmalloc(size_t size)
         die("xmalloc: size = %lu", size);
     return a;
 }
+

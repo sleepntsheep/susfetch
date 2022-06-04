@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 
 #include "susfetch.h"
 #include "util.h"
@@ -17,32 +16,31 @@ char *argv0;
 void
 usage()
 {
-    fprintf(stdout, "%s [-s] [-c yellow]\nsusfetch "VERSION" developed by sleepntsheep", argv0);
+    fprintf(stdout, "%s [-s | --small] [-c yellow || --color yellow]\nsusfetch "VERSION" developed by sleepntsheep", argv0);
     exit(0);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
-    int ci, i, j;
-    bool smol = false;
+    int ci, i, j, smol = 0;
 	char colors[3][13] = { BRST, BRED, BGRY };
 
     argv0 = *argv;
 
     ARGBEGIN {
-        case 'c': {
+        ARGCMP("-c", "--color") {
             char *nx = NXARG(usage());
             for (i = 0; i < LENGTH(colorss); i++)
                 if (!strcmp(nx, colorss[i][0]))
-                    strncpy(colors[1], colorss[i][1], 12);
-            break;
-                  }
-        case 's':
-            smol = true;
-            break;
-        default:;
-            usage();
-            break;
+                    strcpy(colors[1], colorss[i][1]);
+            continue;
+        }
+        ARGCMP("-s", "--small") {
+            smol = 1;
+            continue;
+        }
+        usage();
     } ARGEND
 
 	/* print */
