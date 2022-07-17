@@ -11,6 +11,7 @@ die(const char *fmt, ...)
     vfprintf(stderr, fmt, ag);
     va_end(ag);
     fputc('\n', stderr);
+    exit(1);
 }
 
 void *

@@ -12,5 +12,4 @@ static const Tag fetch[] = {
     "upt", _uptime,
 };
 
-
 #endif /* CONFIG_H */
