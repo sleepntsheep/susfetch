@@ -30,18 +30,12 @@ main(int argc, char *argv[])
 
     argv0 = *argv;
 
-    const struct option 
-        long_options[] = {
-            { .name = "color", .has_arg = required_argument, .flag = 0, .val = 'c' },
-            { .name = "help" , .has_arg = no_argument      , .flag = 0, .val = 'h' },
-        };
-
     while((opt = getopt(argc, argv, "hvsc:")) != -1) {
         switch (opt) {
             case 'h':
             case 'v':
-            default:
                 usage();
+                break;
             case 'c':
                 for (i = 0; i < LENGTH(colorss); i++)
                     if (!strcmp(optarg, colorss[i][0]))
@@ -49,6 +43,8 @@ main(int argc, char *argv[])
                 break;
             case 's':
                 smol = true;
+                break;
+            default:
                 break;
         }
     }
