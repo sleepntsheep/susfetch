@@ -60,7 +60,7 @@ main(int argc, char *argv[])
         for (j = 0; j < WIDTH; j++)
             if (i >= HEIGHT)
                 fputs("  ", stdout);
-            else if ((ci = smol ? smolamogus[i][j] : amogus[i][j]) >= 0)
+            else if ((ci = (smol ? smolamogus[i][j] : amogus[i][j])) >= 0)
                 fprintf(stdout, "%s  ", colors[ci]);
         fprintf(stdout, "%s   %8s: %s\n", BRST, fetch[i].name, fetch[i].fnc());
     }
