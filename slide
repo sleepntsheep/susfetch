@@ -18,7 +18,7 @@ susfetch
 
 - Take 0.01 second to open
 - Not bloat
-- Based
+- Based (written in C)
 - Sus
 
 @scrshot.png
